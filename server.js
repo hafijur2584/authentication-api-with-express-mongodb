@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
     res.json({ message: "Welcome to authentication api with express & mongodb" });
 });
 
-const userRoute = require("./app/routes/user.route");
+const userRoute = require("./app/routes/auth.route");
 //user route
 app.use(`${config.app.url}/users`, userRoute);
 
