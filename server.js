@@ -5,6 +5,8 @@ const app = express();
 
 const config = require("./app/config/config");
 
+const Role = require("./app/models/role.model");
+
 require("./app/config/db.config");
 
 // parse application/x-www-form-urlencoded
@@ -34,4 +36,20 @@ app.use((req, res, next) => {
 
 app.listen(config.app.port,() => {
     console.log(`App is at http://localhost:${config.app.port}`);
+    initial();
 });
+
+
+initial = async () => {
+    const roles = await Role.findOne({});
+
+    if(!roles){
+        let roleList = [
+            {name: 'user'},
+            {name: 'admin'},
+            {name: 'staff'}
+        ];
+
+        Role.insertMany(roleList);
+    }
+};

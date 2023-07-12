@@ -14,7 +14,7 @@ exports.register = async (req, res) => {
         email: req.body.email,
         passwordHash: bcryptUtils.createHash(req.body.password),
         phone: req.body.phone,
-        isAdmin: req.body.isAdmin,
+        isAdmin: 0,
         street: req.body.street,
         state: req.body.state,
         zip: req.body.zip,
