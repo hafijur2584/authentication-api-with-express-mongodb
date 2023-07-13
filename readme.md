@@ -27,6 +27,7 @@ JWT_TIME=360000000
 ```
 
 > Authentication:
+>
 > Register user
 > > http://localhost:4000/api/users/register
 >
