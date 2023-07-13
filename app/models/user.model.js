@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const {ROLE} = require("../config/roles.config");
+
 const userSchema = mongoose.Schema({
     name: {
         type: String,
@@ -17,9 +19,10 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    isAdmin: {
-        type: Boolean,
-        default: false
+    role: {
+        type: String,
+        default: "user",
+        enum: [ROLE.user, ROLE.admin, ROLE.superadmin],
     },
     street: {
         type: String,

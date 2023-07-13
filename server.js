@@ -5,7 +5,7 @@ const app = express();
 
 const config = require("./app/config/config");
 
-const Role = require("./app/models/role.model");
+// const Role = require("./app/models/role.model");
 
 require("./app/config/db.config");
 
@@ -36,20 +36,20 @@ app.use((req, res, next) => {
 
 app.listen(config.app.port,() => {
     console.log(`App is at http://localhost:${config.app.port}`);
-    initial();
+    // initial();
 });
 
 
-initial = async () => {
-    const roles = await Role.findOne({});
+// initial = async () => {
+//     const roles = await Role.findOne({});
 
-    if(!roles){
-        let roleList = [
-            {name: 'user'},
-            {name: 'admin'},
-            {name: 'staff'}
-        ];
+//     if(!roles){
+//         let roleList = [
+//             {name: 'user'},
+//             {name: 'admin'},
+//             {name: 'staff'}
+//         ];
 
-        Role.insertMany(roleList);
-    }
-};
+//         Role.insertMany(roleList);
+//     }
+// };

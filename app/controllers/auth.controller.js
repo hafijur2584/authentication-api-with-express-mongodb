@@ -7,14 +7,44 @@ const cacheUtil = require("../utils/cache.util");
 const jwt = require('jsonwebtoken');
 
 const config = require("../config/config");
+const {ROLE} = require("../config/roles.config");
+const {
+    registerSchema,
+    loginSchema,
+    validateEmail,
+    validatePhone
+} = require("../services/validate");
+
+const MSG = {
+    emailExists: "Email is already registered.",
+    phoneExists: "Phone is already registered.",
+    signupSuccess: "You are successfully signed up.",
+    signupError: "Unable to create your account.",
+};
 
 exports.register = async (req, res) => {
+
+    const registerReq = await registerSchema.validateAsync(req.body);
+    const emailNotTaken = await validateEmail(registerReq.email);
+    const phoneNotTaken = await validatePhone(registerReq.phone);
+    if(!emailNotTaken){
+        return res.status(422).json({
+            message: MSG.emailExists,
+            success: false,
+          });
+    }
+    if(!phoneNotTaken){
+        return res.status(422).json({
+            message: MSG.phoneExists,
+            success: false,
+          });
+    }
     let user = new User({
         name: req.body.name,
         email: req.body.email,
         passwordHash: bcryptUtils.createHash(req.body.password),
         phone: req.body.phone,
-        isAdmin: 0,
+        role: ROLE.user,
         street: req.body.street,
         state: req.body.state,
         zip: req.body.zip,
@@ -44,6 +74,8 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
+    const loginReq = await loginSchema.validateAsync(req.body);
+
     const user = await User.findOne({ email: req.body.email})
 
     if(!user) {
