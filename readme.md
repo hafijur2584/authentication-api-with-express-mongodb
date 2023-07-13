@@ -29,11 +29,13 @@ JWT_TIME=360000000
 > Authentication:
 > Register user
 > > http://localhost:4000/api/users/register
+>
 > Login User
 > > http://localhost:3000/api/users/login
-
+>
 > Get User
 > > http://localhost:3000/api/users/me
+>
 > Logout
 > > http://localhost:3000/api/users/logout
 
